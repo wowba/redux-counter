@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { applyMiddleware, createStore } from 'redux';
 import rootReducer from './reducer';
 import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -17,7 +18,8 @@ const loggerMiddleware = (store: any) => (next: any) => (action: any) => {
   next(action) // 다음 동작으로 이동
 }
 
-const middleware = applyMiddleware(loggerMiddleware); 
+// 미들웨어로 리덕스thunk, logger를 작성하여 첨부.
+const middleware = applyMiddleware(thunk, loggerMiddleware); 
 
 const store = createStore(rootReducer, middleware);
 
@@ -25,7 +27,6 @@ const render = () => root.render(
   <React.StrictMode>
     <Provider store={store}>
       <App 
-        value={store.getState().counter}
         // Action을 dispatch 하여 Redux Store에서 특정 Action을 인식한다.
         onIncrement={() => store.dispatch({type: "INCREMENT"})}
         onDecrement={() => store.dispatch({type: "DECREMENT"})}
