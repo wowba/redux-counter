@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { createStore } from 'redux';
 import rootReducer from './reducer';
+import { Provider } from 'react-redux';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -20,12 +21,14 @@ console.log(store.getState())
 
 const render = () => root.render(
   <React.StrictMode>
-    <App 
-      value={store.getState().counter}
-      // Action을 dispatch 하여 Redux Store에서 특정 Action을 인식한다.
-      onIncrement={() => store.dispatch({type: "INCREMENT"})}
-      onDecrement={() => store.dispatch({type: "DECREMENT"})}
-    />
+    <Provider store={store}>
+      <App 
+        value={store.getState().counter}
+        // Action을 dispatch 하여 Redux Store에서 특정 Action을 인식한다.
+        onIncrement={() => store.dispatch({type: "INCREMENT"})}
+        onDecrement={() => store.dispatch({type: "DECREMENT"})}
+      />
+    </Provider>
   </React.StrictMode>
 );
 
