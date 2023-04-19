@@ -4,18 +4,24 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { createStore } from 'redux';
-import counter from './reducer';
+import rootReducer from './reducer';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
-const store = createStore(counter);
+const store = createStore(rootReducer);
+
+store.dispatch({
+  type: "ADD_TODO",
+  text: "USE REDUX"
+})
+console.log(store.getState())
 
 const render = () => root.render(
   <React.StrictMode>
     <App 
-      value={store.getState()}
+      value={store.getState().counter}
       // Action을 dispatch 하여 Redux Store에서 특정 Action을 인식한다.
       onIncrement={() => store.dispatch({type: "INCREMENT"})}
       onDecrement={() => store.dispatch({type: "DECREMENT"})}
