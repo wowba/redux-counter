@@ -8,3 +8,6 @@ const rootReducer = combineReducers({
 })
 
 export default rootReducer
+
+// useSelector에서 store의 타입 에러 해결
+export type RootState = ReturnType<typeof rootReducer>
